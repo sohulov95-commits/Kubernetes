@@ -28,19 +28,29 @@ spec:
           mountPath: /cache
       - name: synergychat-crawler-2
         image: bootdotdev/synergychat-crawler:latest
-        env:
-        - configMapKeyRef:
+        envFrom:
+        - configMapRef:
             name: synergychat-crawler-configmap
-            key: CRAWLER_PORT_2
+        env:
+        - name: CRAWLER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: synergychat-crawler-configmap
+              key: CRAWLER_PORT_2
         volumeMounts:
         - name: cache-volume
           mountPath: /cache
       - name: synergychat-crawler-3
         image: bootdotdev/synergychat-crawler:latest
-        env:
-        - configMapKeyRef:
+        envFrom:
+        - configMapRef:
             name: synergychat-crawler-configmap
-            key: CRAWLER_PORT_3
+        env:
+        - name: CRAWLER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: synergychat-crawler-configmap
+              key: CRAWLER_PORT_3
         volumeMounts:
         - name: cache-volume
           mountPath: /cache
